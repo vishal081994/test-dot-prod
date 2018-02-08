@@ -150,19 +150,19 @@
     <target name="dev1-cloudhub-start">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="anypoint-cli runtime-mgr cloudhub-application start test-dot-prod-dev1 --username ${username} --password ${password}"/>
+            <arg value="anypoint-cli runtime-mgr cloudhub-application start test-dot-prod-dev1 --username ${dev1.username} --password ${dev1.password} --environment ${dev1.environment}"/>
         </exec>
     </target>
     <target name="dev1-cloudhub-stop">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="anypoint-cli runtime-mgr cloudhub-application stop test-dot-prod-dev1 --username ${username} --password ${password}"/>
+            <arg value="anypoint-cli runtime-mgr cloudhub-application stop test-dot-prod-dev1 --username ${dev1.username} --password ${dev1.password} --environment ${dev1.environment}"/>
         </exec>
     </target>
     <target name="dev1-cloudhub-restart">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="anypoint-cli runtime-mgr cloudhub-application restart test-dot-prod-dev1 --username ${username} --password ${password}"/>
+            <arg value="anypoint-cli runtime-mgr cloudhub-application restart test-dot-prod-dev1 --username ${dev1.username} --password ${dev1.password} --environment ${dev1.environment}"/>
         </exec>
     </target>
     <property name="org.name" value="opt"/>
