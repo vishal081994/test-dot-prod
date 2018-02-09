@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns:ivy="antlib:org.apache.ivy.ant" default="all" name="test-dot-prod-dev1">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" default="all" name="test-dot-prod">
 	<property name="ivy.resolver.default.check.modified" value="true"/>
 
 	<property name="ivy.install.version" value="2.4.0"/>
@@ -8,9 +8,9 @@
 
 	<property name="lib.dir" value="${basedir}/lib"/>
 	
-	<property name="root.dir" value="${user.home}/.test-dot-prod-dev1"/>
+	<property name="root.dir" value="${user.home}/.test-dot-prod"/>
 	<property name="build.dir" value="${root.dir}/classes"/>
-	<property name="dist" value="./target/test-dot-prod-dev1.zip"/>
+	<property name="dist" value="./target/test-dot-prod.zip"/>
 	<property name="src.dir" value="${basedir}/src"/>
 	
 	<property name="web.dir" value="WebContent"/>
@@ -57,10 +57,10 @@
 	</target>
 
 	<target name="compile">
-		<path id="test-dot-prod-dev1.lib.path">
+		<path id="test-dot-prod.lib.path">
 			<fileset dir="${basedir}/lib" includes="*.jar"/>
 		</path>
-		<javac classpathref="test-dot-prod-dev1.lib.path" debug="true" destdir="${build.dir}" excludes="test/**" srcdir="${src.dir}">
+		<javac classpathref="test-dot-prod.lib.path" debug="true" destdir="${build.dir}" excludes="test/**" srcdir="${src.dir}">
 			<compilerarg line="-XDignore.symbol.file"/>
 		</javac>
 		<!--copy todir="${build.dir}/pages">
@@ -99,7 +99,7 @@
     </target>	
 
     <target depends="mvn-compile" name="overall-zip">
-    	<zip basedir="." destfile="/tmp/test-dot-prod-dev1.zip"/>
+    	<zip basedir="." destfile="/tmp/test-dot-prod.zip"/>
     </target>
 	 
 	
@@ -113,7 +113,7 @@
     <target name="mule-export-property">
 	    <propertyfile comment="" file="/tmp/mule_export.properties">
 		  <entry key="mule_export_version" value="1.0"/>
-		  <entry key="mule_exported_projects" value="test-dot-prod-dev1"/>
+		  <entry key="mule_exported_projects" value="test-dot-prod"/>
 	    </propertyfile>    
     </target>
 
@@ -123,46 +123,46 @@
 			<zipfileset dir="./src/main/app/"/>
 			<zipfileset file="./pom.xml"/>
 	    	<zipfileset file="/tmp/mule_export.properties" prefix="META-INF"/>
-			<zipfileset file="/tmp/test-dot-prod-dev1.zip" prefix="META-INF"/>
+			<zipfileset file="/tmp/test-dot-prod.zip" prefix="META-INF"/>
 	    </zip>
 	    <antcall target="archive-clean"/>
     </target>    
     
     <target name="archive-clean">
 	 	<delete file="/tmp/mule_export.properties"/>
-	 	<delete file="/tmp/test-dot-prod-dev1.zip"/>
+	 	<delete file="/tmp/test-dot-prod.zip"/>
     </target>
 	
-<target name="dev1-cloudhub-modify">
+<target name="dev2-cloudhub-modify">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="anypoint-cli runtime-mgr cloudhub-application modify test-dot-prod-dev1 ./target/test-dot-prod-dev1.zip --username ${dev1.username} --password ${dev1.password} --environment ${dev1.environment}"/>
+            <arg value="anypoint-cli runtime-mgr cloudhub-application modify test-dot-prod ./target/test-dot-prod.zip --username ${dev2.username} --password ${dev2.password} --environment ${dev2.environment}"/>
         </exec>
         <antcall target="wait-for-start"/>
     </target>
-    <target name="dev1-cloudhub-deploy">
+    <target name="dev2-cloudhub-deploy">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="anypoint-cli runtime-mgr cloudhub-application deploy test-dot-prod-dev1 ./target/test-dot-prod-dev1.zip --username ${dev1.username} --password ${dev1.password} --environment ${dev1.environment}"/>
+            <arg value="anypoint-cli runtime-mgr cloudhub-application deploy test-dot-prod ./target/test-dot-prod.zip --username ${dev2.username} --password ${dev2.password} --environment ${dev2.environment}"/>
         </exec>
         <antcall target="wait-for-start"/>
     </target>
-    <target name="dev1-cloudhub-start">
+    <target name="dev2-cloudhub-start">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="anypoint-cli runtime-mgr cloudhub-application start test-dot-prod-dev1 --username ${dev1.username} --password ${dev1.password} --environment ${dev1.environment}"/>
+            <arg value="anypoint-cli runtime-mgr cloudhub-application start test-dot-prod --username ${dev2.username} --password ${dev2.password} --environment ${dev2.environment}"/>
         </exec>
     </target>
-    <target name="dev1-cloudhub-stop">
+    <target name="dev2-cloudhub-stop">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="anypoint-cli runtime-mgr cloudhub-application stop test-dot-prod-dev1 --username ${dev1.username} --password ${dev1.password} --environment ${dev1.environment}"/>
+            <arg value="anypoint-cli runtime-mgr cloudhub-application stop test-dot-prod --username ${dev2.username} --password ${dev2.password} --environment ${dev2.environment}"/>
         </exec>
     </target>
-    <target name="dev1-cloudhub-restart">
+    <target name="dev2-cloudhub-restart">
         <exec executable="sh">
             <arg value="-c"/>
-            <arg value="anypoint-cli runtime-mgr cloudhub-application restart test-dot-prod-dev1 --username ${dev1.username} --password ${dev1.password} --environment ${dev1.environment}"/>
+            <arg value="anypoint-cli runtime-mgr cloudhub-application restart test-dot-prod --username ${dev2.username} --password ${dev2.password} --environment ${dev2.environment}"/>
         </exec>
     </target>
     <property name="org.name" value="opt"/>
